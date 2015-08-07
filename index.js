@@ -1,8 +1,8 @@
 /* global module, __dirname */
 
 /**
- * A module objects in an environment
- * @module lethexa-simenv
+ * A module for calculating the n-body-gravity-problem
+ * @module lethexa-nbodycalc
  */
-module.exports = require('./lib/environment');
+module.exports = require('./lib/nbodycalc');
  
