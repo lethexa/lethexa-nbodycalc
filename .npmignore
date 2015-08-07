@@ -1,0 +1,9 @@
+/.git/
+/dist/
+/build/
+/doc/
+jenkins-grunt.sh
+npm-debug.log
+publishTag.sh
+.gitignore
+.*.swp
