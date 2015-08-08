@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             reporter: "list",
             ui: "tdd"
           },
-          all: ["test/tests.js"]
+          all: ["test/*.js"]
         }
     });
 
