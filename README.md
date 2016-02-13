@@ -1,3 +1,9 @@
+lethexa-nbodycalc
+-----------------
+
+Multibody-gravity simulation (no gui, only the calculations).
+
+
 Installation
 ------------
 
