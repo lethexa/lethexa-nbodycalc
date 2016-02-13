@@ -1,18 +1,15 @@
 {
   "name": "lethexa-nbodycalc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Multibody-gravity-calculation",
   "main": "index.js",
   "scripts": {
     "start": "node start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "publishConfig": {
-    "registry": "http://npm.home.web:4873/"
-  },
   "repository": {
     "type": "git",
-    "url": "git://git.home.web/base/js/lethexa-nbodycalc.git"
+    "url": "https://github.com/lethexa/lethexa-nbodycalc"
   },   
   "keywords": [
     "Simulation"
@@ -26,6 +23,6 @@
     "grunt-mocha-cli": "~1.13.0"
   },
   "dependencies": {
-    "lethexa-vecmat": "0.0.4"
+    "lethexa-vecmat": "1.1.2"
   }
 }
