@@ -1,6 +1,6 @@
 {  
   "name": "lethexa-nbodycalc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Multibody-gravity-calculation",
   "main": "index.js",
   "scripts": {
