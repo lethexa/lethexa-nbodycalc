@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div id="map" style="width: 600px; height: 400px"></div>
+	<canvas id="myCanvas" width="200" height="200" style="border:1px solid #000000;">
+	</canvas> 
 	<script src="lethexa-nbodycalc.js"></script>
 	<script>
         console.log(nbodycalc);
@@ -47,34 +48,37 @@
 	var mynbodycalc = nbodycalc.withMathFunc(MathFunc);
 
         var sim = new mynbodycalc.GravitySimulator();
+	var bodies = [
+        	{
+                	position: [0,0,0],
+                	velocity: [0,0,0],
+                	mass: 20000000.0
+        	},
+       		{
+                	position: [1,1,0],
+                	velocity: [-0.05,0,0],
+                	mass: 1000000.0
+        	}
+	];
 
-        var body1 = {
-                position: [1,0,0],
-                velocity: [0,0,0],
-                mass: 1000000.0
-        };
+	for(var i=0;i<bodies.length;i++) {
+        	sim.addBody(bodies[i]);
+	}
 
-        var body2 = {
-                position: [-1,0,0],
-                velocity: [0,0,0],
-                mass: 1000000.0
-        };
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
 
-        var body3 = {
-                position: [0,1,0],
-                velocity: [0,0,0],
-                mass: 1000000.0
-        };
-
-
-
-        sim.addBody(body1);
-        sim.addBody(body2);
-        sim.addBody(body3);
-
-        for(var t=0;t<100;t++) {
-                console.log('position1: ', body1.position);
+        for(var t=0;t<500;t++) {
                 sim.updateTime(1.0);
+
+		for(var k=0;k<bodies.length;k++) {
+			var x = 100 + bodies[k].position[0] * 100;
+			var y = 100 - bodies[k].position[1] * 100;
+
+			ctx.beginPath();
+			ctx.arc(x,y,2,0,2*Math.PI);
+			ctx.stroke();	
+		}
         }
 
 
