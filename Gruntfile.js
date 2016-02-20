@@ -13,13 +13,65 @@ module.exports = function (grunt) {
 		url: '<%= pkg.homepage %>',
                 options: {
 		    exclude: 'build,dist,doc',
-                    paths: ['lib/'],
+                    paths: ['./', 'lib/'],
                     outdir: 'doc/'
                 }
             }
         },
+
+        concat: {
+          options: {
+            separator: ';',
+          },
+          dist: {
+            src: ['lib/motionpredict.js'],
+            dest: '<%= pkg.name %>.js',
+          },
+        },
+
         jshint: {
             all: ['lib/*.js']
+        },
+        
+        mochaTest: {
+          test: {
+            options: {
+              reporter: 'spec',
+              captureFile: 'results.txt', // Optionally capture the reporter output to a file
+              quiet: false, // Optionally suppress output to standard out (defaults to false)
+              clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+            },
+            src: ['test/**/*.js']
+          }
+        },
+
+        env: {
+          coverage: {
+            APP_DIR_FOR_CODE_COVERAGE: '../coverage/instrument/lib/'
+          }
+        },
+
+        instrument: {
+          files: 'lib/*.js',
+          options: {
+            lazy: true,
+            basePath: 'coverage/instrument/'
+          }
+        },
+
+        storeCoverage: {
+          options: {
+            dir: 'coverage/reports'
+          }
+        },
+
+        makeReport: {
+          src: 'coverage/reports/**/*.json',
+          options: {
+            type: 'cobertura',
+            dir: 'coverage/reports',
+            print: 'detail'
+          }
         },
         
         mochacli: {
@@ -28,15 +80,30 @@ module.exports = function (grunt) {
             ui: "tdd"
           },
           all: ["test/*.js"]
+        },
+
+        uglify: {
+          options: {
+//            banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> Copyright by <%= pkg.author.name %> <%= pkg.author.email %> */$
+          },
+          build: {
+            src: '<%= pkg.name %>.js',
+            dest: '<%= pkg.name %>.min.js'
+          }
         }
     });
 
-    grunt.loadNpmTasks("grunt-mocha-cli");
+    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-istanbul');
+    grunt.loadNpmTasks('grunt-env');
 
     grunt.registerTask('check', ['jshint']);
-    grunt.registerTask('test', ['mochacli']);
-    grunt.registerTask('jenkins', ['jshint', 'mochacli', 'yuidoc']);
-    grunt.registerTask('default', ['jshint', 'mochacli', 'yuidoc']);
+    grunt.registerTask('test', ['mochaTest']);
+    grunt.registerTask('coverage', ['jshint', 'env:coverage', 'instrument', 'mochaTest', 'storeCoverage', 'makeReport']);
+    grunt.registerTask('jenkins', ['jshint', 'env:coverage', 'instrument', 'mochaTest', 'storeCoverage', 'makeReport']);
+    grunt.registerTask('default', ['jshint', 'mochaTest', 'concat', 'yuidoc', 'uglify']);
 };

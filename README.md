@@ -12,6 +12,40 @@ Installation
 
 Usage
 -----
+        var MathFunc = {
+		nullVector: function() {
+			return [0,0,0];
+		},
+                add: function(a, b) {
+                        return [
+                                a[0] + b[0],
+                                a[1] + b[1],
+                                a[2] + b[2]
+                        ];
+                },
+                sub: function(a, b) {
+                        return [
+                                a[0] - b[0],
+                                a[1] - b[1],
+                                a[2] - b[2]
+                        ];
+                },
+                mulScalar: function(a, s) {
+                        return [
+                                a[0] * s,
+                                a[1] * s,
+                                a[2] * s
+                        ];
+                },
+                dot: function(a, b) {
+                        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+                },
+                lengthSquared: function(a) {
+                        return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
+                }
+        };
+
+
 
 	var nbodycalc = require('./lib/nbodycalc');
 	var vecmat = require('lethexa-vecmat');

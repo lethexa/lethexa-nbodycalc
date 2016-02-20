@@ -2,6 +2,8 @@
 /dist/
 /build/
 /doc/
+/coverage/
+results.txt
 jenkins-grunt.sh
 npm-debug.log
 publishTag.sh

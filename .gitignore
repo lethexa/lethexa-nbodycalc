@@ -3,3 +3,6 @@
 /dist/
 /build/
 /target/
+/coverage/
+results.txt
+*.swp
