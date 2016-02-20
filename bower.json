@@ -25,6 +25,9 @@
     "jenkins-grunt.sh",
     "publishTag.sh",
     "public",
+    "example.js",
+    "package.js",
+    "index.js",
     "lib",
     "test",
     "tests"
