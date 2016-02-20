@@ -26,7 +26,7 @@
     "publishTag.sh",
     "public",
     "example.js",
-    "package.js",
+    "package.json",
     "index.js",
     "lib",
     "test",
