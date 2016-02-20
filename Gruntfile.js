@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             separator: ';',
           },
           dist: {
-            src: ['lib/motionpredict.js'],
+            src: ['lib/nbodycalc.js'],
             dest: '<%= pkg.name %>.js',
           },
         },

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>N-Body example</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div id="map" style="width: 600px; height: 400px"></div>
+	<script src="lethexa-nbodycalc.js"></script>
+	<script>
+        console.log(nbodycalc);
+
+        var MathFunc = {
+                nullVector: function() {
+                        return [0,0,0];
+                },
+                add: function(a, b) {
+                        return [
+                                a[0] + b[0],
+                                a[1] + b[1],
+                                a[2] + b[2]
+                        ];
+                },
+                sub: function(a, b) {
+                        return [
+                                a[0] - b[0],
+                                a[1] - b[1],
+                                a[2] - b[2]
+                        ];
+                },
+                mulScalar: function(a, s) {
+                        return [
+                                a[0] * s,
+                                a[1] * s,
+                                a[2] * s
+                        ];
+                },
+                dot: function(a, b) {
+                        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+                },
+                lengthSquared: function(a) {
+                        return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
+                }
+        };
+
+	var mynbodycalc = nbodycalc.withMathFunc(MathFunc);
+
+        var sim = new mynbodycalc.GravitySimulator();
+
+        var body1 = {
+                position: [1,0,0],
+                velocity: [0,0,0],
+                mass: 1000000.0
+        };
+
+        var body2 = {
+                position: [-1,0,0],
+                velocity: [0,0,0],
+                mass: 1000000.0
+        };
+
+        var body3 = {
+                position: [0,1,0],
+                velocity: [0,0,0],
+                mass: 1000000.0
+        };
+
+
+
+        sim.addBody(body1);
+        sim.addBody(body2);
+        sim.addBody(body3);
+
+        for(var t=0;t<100;t++) {
+                console.log('position1: ', body1.position);
+                sim.updateTime(1.0);
+        }
+
+
+	</script>
+</body>
+</html>
