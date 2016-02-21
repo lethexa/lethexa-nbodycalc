@@ -13,7 +13,7 @@ Installation
 (Example website on localhost:8000. Start with 'npm start')
 
 ![Example](https://raw.githubusercontent.com/lethexa/lethexa-nbodycalc/gh-pages/gravity.png)
-
+The example shows 3 masses. One with big mass (red) in the center, the others with smaller masses (green, blue).
 
 Usage
 -----
