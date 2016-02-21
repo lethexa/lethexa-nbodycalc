@@ -1,8 +1,8 @@
 lethexa-nbodycalc
 -----------------
 
-Multibody-gravity simulation (no gui, only the calculations).
-
+Multibody-gravity simulation using Runge-Kutta-Integration method.
+There is an example in a website using canvas to show plante movements.
 
 Installation
 ------------
@@ -10,76 +10,84 @@ Installation
 	npm install
 	grunt
 
+(Example website on localhost:8000. Start with 'npm start')
+
 Usage
 -----
-        var MathFunc = {
+
+	/////////////////////////////////////////////////
+	// Definition of required vector math functions
+	// as plugin for the calculations.
+	// Change this to adapt to your favourite vector library.
+	var MathFunc = {
 		nullVector: function() {
 			return [0,0,0];
 		},
-                add: function(a, b) {
-                        return [
-                                a[0] + b[0],
-                                a[1] + b[1],
-                                a[2] + b[2]
-                        ];
-                },
-                sub: function(a, b) {
-                        return [
-                                a[0] - b[0],
-                                a[1] - b[1],
-                                a[2] - b[2]
-                        ];
-                },
-                mulScalar: function(a, s) {
-                        return [
-                                a[0] * s,
-                                a[1] * s,
-                                a[2] * s
-                        ];
-                },
-                dot: function(a, b) {
-                        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-                },
-                lengthSquared: function(a) {
-                        return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
-                }
-        };
-
-
-
-	var nbodycalc = require('./lib/nbodycalc');
-	var vecmat = require('lethexa-vecmat');
-
-	var sim = new nbodycalc.GravitySimulator();
-
-	var body1 = {
-        	position: new vecmat.Vector3d(1.0, 0.0, 0.0),
-        	velocity: vecmat.makeNullVector3d(),
-        	mass: 1000000.0
-	};
-
-	var body2 = {
-        	position: new vecmat.Vector3d(-1.0, 0.0, 0.0),
-        	velocity: vecmat.makeNullVector3d(),
-        	mass: 1000000.0
-	};
-
-	var body3 = {
-        	position: new vecmat.Vector3d(0.0, 1.0, 0.0),
-        	velocity: vecmat.makeNullVector3d(),
-        	mass: 1000000.0
+		add: function(a, b) {
+			return [
+				a[0] + b[0],
+				a[1] + b[1],
+				a[2] + b[2]
+			];
+		},
+		sub: function(a, b) {
+			return [
+				a[0] - b[0],
+				a[1] - b[1],
+				a[2] - b[2]
+			];
+		},
+		mulScalar: function(a, s) {
+			return [
+				a[0] * s,
+				a[1] * s,
+				a[2] * s
+			];
+		},
+		dot: function(a, b) {
+			return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+		},
+		lengthSquared: function(a) {
+			return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
+		}
 	};
 
 
+	var nbodycalc = require('lethexa-nbodycalc');
+	var mynbodycalc = nbodycalc.withMathFunc(MathFunc);
 
-	sim.addBody(body1);
-	sim.addBody(body2);
-	sim.addBody(body3);
+	var bodies = [
+		{
+			position: [-1,-1,0],
+			velocity: [0.03,0.001,0],
+			mass: 1000000.0,
+			color: '#00FF00'
+		},
+		{
+			position: [0,0,0],
+			velocity: [0,0,0],
+			mass: 20000000.0,
+			color: '#FF0000'
+		},
+		{
+			position: [1,1,0],
+			velocity: [-0.03,0,0],
+			mass: 1000000.0,
+			color: '#0000FF'
+		}
+	];
 
-	for(var t=0;t<100;t++) {
-        	console.log('position1: ', body1.position);
-        	sim.updateTime(1.0);
+	//// THE EXAMPLE ////
+	var sim = new mynbodycalc.GravitySimulator();
+
+	// Add bodies to simulation
+	for(var i=0;i<bodies.length;i++) {
+		sim.addBody(bodies[i]);
 	}
 
-
-
+	
+	// Do simulation timesteps.
+	for(var t=0;t<100;t++) {
+		console.log('position of body1: ', body1.position);
+		sim.updateTime(1.0);
+	}
