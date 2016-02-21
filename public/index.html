@@ -6,11 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<canvas id="myCanvas" width="200" height="200" style="border:1px solid #000000;">
+	<canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
 	</canvas> 
 	<script src="lethexa-nbodycalc.js"></script>
 	<script>
-        console.log(nbodycalc);
 
         var MathFunc = {
                 nullVector: function() {
@@ -49,15 +48,23 @@
 
         var sim = new mynbodycalc.GravitySimulator();
 	var bodies = [
+                {
+                        position: [-1,-1,0],
+                        velocity: [0.03,0.001,0],
+                        mass: 1000000.0,
+                        color: '#00FF00'
+                },
         	{
                 	position: [0,0,0],
                 	velocity: [0,0,0],
-                	mass: 20000000.0
+                	mass: 20000000.0,
+			color: '#FF0000'
         	},
        		{
                 	position: [1,1,0],
-                	velocity: [-0.05,0,0],
-                	mass: 1000000.0
+                	velocity: [-0.03,0,0],
+                	mass: 1000000.0,
+			color: '#0000FF'
         	}
 	];
 
@@ -66,21 +73,48 @@
 	}
 
 	var c = document.getElementById("myCanvas");
+	var width = c.width;
+	var height = c.height;
+	var width2 = width/2;
+	var height2 = height/2;
 	var ctx = c.getContext("2d");
 
+	var t = 0;
+	var dt = 1.0;
+	setInterval( function() {
+                for(var k=0;k<bodies.length;k++) {
+                        var x = width2 + bodies[k].position[0] * width / 5.0;
+                        var y = height2 - bodies[k].position[1] * height / 5.0;
+                        var radius = t === 0 ? 5 : 2;
+
+                        ctx.strokeStyle = bodies[k].color;
+                        ctx.fillStyle = bodies[k].color;
+                        ctx.beginPath();
+                        ctx.arc(x,y,radius,0,2*Math.PI);
+                        ctx.stroke();   
+                        ctx.fill();
+                }
+                sim.updateTime(dt);
+		t += dt;
+	}, 100);
+/*
         for(var t=0;t<500;t++) {
                 sim.updateTime(1.0);
 
 		for(var k=0;k<bodies.length;k++) {
-			var x = 100 + bodies[k].position[0] * 100;
-			var y = 100 - bodies[k].position[1] * 100;
+			var x = width2 + bodies[k].position[0] * width / 5.0;
+			var y = height2 - bodies[k].position[1] * height / 5.0;
+			var radius = t === 0 ? 5 : 2;
 
+			ctx.strokeStyle = bodies[k].color;
+			ctx.fillStyle = bodies[k].color;
 			ctx.beginPath();
-			ctx.arc(x,y,2,0,2*Math.PI);
+			ctx.arc(x,y,radius,0,2*Math.PI);
 			ctx.stroke();	
+			ctx.fill();
 		}
         }
-
+*/
 
 	</script>
 </body>
