@@ -12,6 +12,9 @@ Installation
 
 (Example website on localhost:8000. Start with 'npm start')
 
+![Example](https://raw.githubusercontent.com/lethexa/lethexa-nbodycalc/gh-pages/gravity.png)
+
+
 Usage
 -----
 

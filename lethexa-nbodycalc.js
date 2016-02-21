@@ -2,7 +2,7 @@
   'use strict';
 
   /**
-   * Creates a motionpredictor with pluggable Math functions.
+   * Creates an gravity-simulator with pluggable Math functions.
    */
   exports.withMathFunc = function(mf) {
     return {
@@ -71,12 +71,11 @@
          */
         this.updateTime = function(dt) {
           bodies.forEach(function(otherBody) {
-            // Integrieren nach Runge-Kutta...
+            // Integrate via Runge-Kutta...
             var R = otherBody.position;
             var V = otherBody.velocity;
             var A = calcAccelForObject(otherBody, GRAVITY_CONSTANT, R);
 
-            //console.log('R:', R, 'V:', V);
             var halfDiffT = 0.5 * dt;
 
             var KaV = V;
