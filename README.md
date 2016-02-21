@@ -2,7 +2,7 @@ lethexa-nbodycalc
 -----------------
 
 Multibody-gravity simulation using Runge-Kutta-Integration method.
-There is an example in a website using canvas to show plante movements.
+There is an example in a website using canvas to show planet movements.
 
 Installation
 ------------
@@ -51,6 +51,7 @@ Usage
 			return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
 		}
 	};
+	/////////////////////////////////////////////////
 
 
 	var nbodycalc = require('lethexa-nbodycalc');
@@ -91,3 +92,10 @@ Usage
 		console.log('position of body1: ', body1.position);
 		sim.updateTime(1.0);
 	}
+
+
+License
+-------
+
+This library is published under MIT license.
+
