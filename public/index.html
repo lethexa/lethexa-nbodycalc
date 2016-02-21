@@ -97,24 +97,6 @@
                 sim.updateTime(dt);
 		t += dt;
 	}, 100);
-/*
-        for(var t=0;t<500;t++) {
-                sim.updateTime(1.0);
-
-		for(var k=0;k<bodies.length;k++) {
-			var x = width2 + bodies[k].position[0] * width / 5.0;
-			var y = height2 - bodies[k].position[1] * height / 5.0;
-			var radius = t === 0 ? 5 : 2;
-
-			ctx.strokeStyle = bodies[k].color;
-			ctx.fillStyle = bodies[k].color;
-			ctx.beginPath();
-			ctx.arc(x,y,radius,0,2*Math.PI);
-			ctx.stroke();	
-			ctx.fill();
-		}
-        }
-*/
 
 	</script>
 </body>
